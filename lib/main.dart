@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
 
 void main() {
@@ -14,13 +15,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+          scaffoldBackgroundColor: lightBackgroundColor,
+          appBarTheme: AppBarTheme(
+              backgroundColor: whiteColor,
+              elevation: 0,
+              iconTheme: IconThemeData(color: blackColor),
+              centerTitle: true,
+              titleTextStyle:
+              blackTextStyle.copyWith(fontSize: 20, fontWeight: semiBold)
+          )
       ),
       routes: {
-        '/': (context) => const LoginPage(),
+        '/': (context) => LoginPage(),
 
         '/login-page': (context) => const LoginPage(),
+        '/main-page': (context) => MainPage()
       },
     );
   }
