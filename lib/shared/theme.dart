@@ -10,6 +10,9 @@ Color whiteblueColor = const Color(0xffe5e6ff);
 Color orangeColor = const Color(0xffFF9A18);
 Color greenColor = const Color(0xff59BF70);
 Color darkGreyColor = const Color(0xff545454);
+Color lightBlue = const Color(0xff5356FF);
+Color darkBlue = const Color(0xff323499);
+Color lightBlue2 = const Color(0xffD6D7FF);
 
 TextStyle blackTextStyle = GoogleFonts.poppins(color: blackColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
