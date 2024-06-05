@@ -16,9 +16,9 @@ class _NavigationExampleState extends State<MainPage> {
       body: IndexedStack(
         index: currentPageIndex,
         children: const <Widget>[
-          // HomePage(),
-          // FormPage(),
-          // ProfilePage(),
+           HomePage(),
+          FormPage(),
+           ProfilePage(),
         ],
       ),
       bottomNavigationBar: Padding(
@@ -95,3 +95,17 @@ class _NavigationExampleState extends State<MainPage> {
     );
   }
 }
+
+class FormPage extends StatelessWidget {
+  const FormPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('COba')
+      ],
+    );
+  }
+}
+
