@@ -10,3 +10,4 @@ part 'login_page.dart';
 part 'profile_page.dart';
 part 'main_page.dart';
 part 'career_page.dart';
+part 'article_page.dart';
