@@ -6,4 +6,5 @@ part 'article_wigets.dart';
 part 'custom_text_field_widget.dart';
 part 'custom_button_widget.dart';
 part 'search_textfield_widget.dart';
+part 'dropdown_menu_widget.dart';
 part 'text_field_tracer_widget.dart';
