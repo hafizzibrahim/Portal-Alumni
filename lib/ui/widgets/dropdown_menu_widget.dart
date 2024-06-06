@@ -8,22 +8,28 @@ class DropdownMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double padding = 26.0;
+    final double availableWidth = MediaQuery.of(context).size.width - (2 * padding);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),),
         const SizedBox(height: 10,),
-        DropdownMenu<String>(
-          width: 340,
-          enableSearch: false,
-          dropdownMenuEntries: listValue,
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: whiteColor,
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(14)
-            )
+        SizedBox(
+          width: availableWidth,
+          child: DropdownMenu<String>(
+            width: availableWidth,
+            enableSearch: false,
+            dropdownMenuEntries: listValue,
+            inputDecorationTheme: InputDecorationTheme(
+                filled: true,
+                fillColor: whiteColor,
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(14)
+                )
+            ),
           ),
         ),
       ],
