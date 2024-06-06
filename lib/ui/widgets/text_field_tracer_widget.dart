@@ -12,16 +12,14 @@ class TextFieldTracerWidget extends StatelessWidget {
       children: [
         Text(title, style: blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),),
         SizedBox(height: 8,),
-        TextFormField(
+        TextField(
           maxLines: maxLines,
           decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: greyColor)
-            ),
+            filled: true,
+            fillColor: whiteColor,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: greyColor)
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(14),
             ),
           ),
         ),

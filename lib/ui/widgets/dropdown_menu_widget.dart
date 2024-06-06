@@ -14,7 +14,7 @@ class DropdownMenuWidget extends StatelessWidget {
         Text(label, style: blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),),
         const SizedBox(height: 10,),
         DropdownMenu<String>(
-          width: MediaQuery.of(context).size.width,
+          width: 340,
           enableSearch: false,
           dropdownMenuEntries: listValue,
           inputDecorationTheme: InputDecorationTheme(
