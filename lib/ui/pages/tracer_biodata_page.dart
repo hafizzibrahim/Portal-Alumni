@@ -6,7 +6,7 @@ class TracerBiodataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: whiteblueColor,
       appBar: AppBar(
         title: const Text('Data Biodata'),
         leading: IconButton(
@@ -15,7 +15,7 @@ class TracerBiodataPage extends StatelessWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
         children: [
           SizedBox(
             width: double.infinity,
@@ -30,17 +30,37 @@ class TracerBiodataPage extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 16,),
+          const TextFieldTracerWidget(title: 'Nama', maxLines: 1),
+          const SizedBox(height: 16,),
+          const TextFieldTracerWidget(title: 'NIM', maxLines: 1),
+          const SizedBox(height: 16,),
+          const DropdownMenuWidget(height: 70, label: 'Faklutas', listValue: [
+            DropdownMenuEntry(value: 'Hukum', label: 'Hukum'),
+            DropdownMenuEntry(value: 'Keguruan dan Ilmu Pendidikan', label: 'Keguruan dan Ilmu Pendidikan'),
+            DropdownMenuEntry(value: 'Teknik', label: 'Teknik'),
+            DropdownMenuEntry(value: 'Pertanian', label: 'Pertanian'),
+            DropdownMenuEntry(value: 'Ilmu Sosial dan Ilmu Politik', label: 'Ilmu Sosial dan Ilmu Politik'),
+          ]),
           SizedBox(height: 16,),
-          TextFieldTracerWidget(title: 'Nama', maxLines: 1),
-          SizedBox(height: 16,),
-          TextFieldTracerWidget(title: 'NIM', maxLines: 1),
-          SizedBox(height: 16,),
-          TextFieldTracerWidget(title: 'Email Kampus', maxLines: 1),
-          SizedBox(height: 16,),
-          TextFieldTracerWidget(title: 'Email Pribadi', maxLines: 1),
-          SizedBox(height: 16,),
-          TextFieldTracerWidget(title: 'No Handphone / WhatsApp', maxLines: 1),
-          SizedBox(height: 32,),
+          const DropdownMenuWidget(height: 70, label: 'Program Studi', listValue: [
+            DropdownMenuEntry(value: 'Hukum', label: 'Hukum'),
+            DropdownMenuEntry(value: 'Keguruan dan Ilmu Pendidikan', label: 'Keguruan dan Ilmu Pendidikan'),
+            DropdownMenuEntry(value: 'Teknik', label: 'Teknik'),
+            DropdownMenuEntry(value: 'Pertanian', label: 'Pertanian'),
+            DropdownMenuEntry(value: 'Ilmu Sosial dan Ilmu Politik', label: 'Ilmu Sosial dan Ilmu Politik'),
+          ]),
+          const DropdownMenuWidget(height: 70, label: 'Jenis Kelamin', listValue: [
+            DropdownMenuEntry(value: 'Lanang', label: 'Lanang'),
+            DropdownMenuEntry(value: 'Wadong', label: 'Wadon'),
+          ]),
+          const SizedBox(height: 16,),
+          const TextFieldTracerWidget(title: 'Email Kampus', maxLines: 1),
+          const SizedBox(height: 16,),
+          const TextFieldTracerWidget(title: 'Email Pribadi', maxLines: 1),
+          const SizedBox(height: 16,),
+          const TextFieldTracerWidget(title: 'No Handphone / WhatsApp', maxLines: 1),
+          const SizedBox(height: 32,),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
