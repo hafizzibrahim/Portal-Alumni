@@ -50,6 +50,7 @@ class TracerBiodataPage extends StatelessWidget {
             DropdownMenuEntry(value: 'Pertanian', label: 'Pertanian'),
             DropdownMenuEntry(value: 'Ilmu Sosial dan Ilmu Politik', label: 'Ilmu Sosial dan Ilmu Politik'),
           ]),
+          SizedBox(height: 16,),
           const DropdownMenuWidget(height: 70, label: 'Jenis Kelamin', listValue: [
             DropdownMenuEntry(value: 'Lanang', label: 'Lanang'),
             DropdownMenuEntry(value: 'Wadong', label: 'Wadon'),
@@ -65,7 +66,7 @@ class TracerBiodataPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomButtonWidget(title: 'Next', width: 120,),
+              CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () {  },),
             ],
           )
         ],
