@@ -40,8 +40,8 @@ class TracerWisudaPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomButtonWidget(title: 'Previos', width: 120, isEnable: false,),
-            CustomButtonWidget(title: 'Next', width: 120,),
+            CustomButtonWidget(title: 'Previous', width: 120, isEnable: false, onTap: () {  },),
+            CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () {  },),
           ],
         ),
       ),

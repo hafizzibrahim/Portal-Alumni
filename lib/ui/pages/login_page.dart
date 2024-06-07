@@ -88,10 +88,10 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(
                           height: 32,
                         ),
-                        const CustomButtonWidget(
+                        CustomButtonWidget(
                           title: 'Masuk',
                           width: 250,
-                          heigth: 55,
+                          heigth: 55, isEnable: true, onTap: () { Navigator.pushNamed(context, '/main-page'); },
                         )
                       ],
                     ),
