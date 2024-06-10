@@ -26,7 +26,7 @@ class TracerStudyPage extends StatelessWidget {
                   Text('Selamat Datang', style: blueTextStyle.copyWith(fontWeight: extraBold, fontSize: 22),),
                   Text('Di Tracer Study', style: blackTextStyle.copyWith(fontWeight: extraBold, fontSize: 17),),
                   const SizedBox(height: 32,),
-                  const CustomButtonWidget(title: 'Mulai', width: 175, heigth: 48,)
+                  CustomButtonWidget(title: 'Mulai', width: 175, heigth: 48, isEnable: true, onTap: (){},)
                 ],
               ),
             )
