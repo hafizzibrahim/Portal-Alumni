@@ -4,7 +4,8 @@ class CustomButtonWidget extends StatelessWidget {
   final double width;
   final double heigth;
   final String title;
-  const CustomButtonWidget({super.key, this.width = 180, this.heigth = 60, required this.title});
+  final bool isEnable;
+  const CustomButtonWidget({super.key, this.width = 180, this.heigth = 60, required this.title, this.isEnable = true});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,8 @@ class CustomButtonWidget extends StatelessWidget {
         height: heigth,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: blueColor
-        ),child: Center(child: Text(title, style: whiteTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),)),
+          color: isEnable? blueColor : softGreyColor
+        ),child: Center(child: Text(title, style: isEnable? whiteTextStyle.copyWith(fontSize: 18, fontWeight: semiBold) : blueTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),)),
       ),
     );
   }
