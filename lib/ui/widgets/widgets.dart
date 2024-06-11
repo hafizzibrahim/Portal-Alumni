@@ -9,4 +9,3 @@ part 'search_textfield_widget.dart';
 part 'dropdown_menu_widget.dart';
 part 'text_field_tracer_widget.dart';
 part 'checkbox_widget.dart';
-part 'test.dart';
