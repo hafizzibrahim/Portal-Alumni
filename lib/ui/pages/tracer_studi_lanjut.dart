@@ -6,18 +6,9 @@ class TracerStudiLanjutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
-        child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              title: Text(
-                'Data Studi Lanjut',
-                style:
-                blackTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 26),
-              ),
-            )),
+      backgroundColor: whiteblueColor,
+      appBar: AppBar(
+        title: const Text('Data Studi Lanjut'),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
@@ -46,13 +37,13 @@ class TracerStudiLanjutPage extends StatelessWidget {
           const TextFieldTracerWidget(title: 'Nama Kampus', maxLines: 1),
         ],
       ),
-      bottomNavigationBar: const Padding(
+      bottomNavigationBar: Padding(
         padding: EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomButtonWidget(title: 'Previous', width: 120, isEnable: false,),
-            CustomButtonWidget(title: 'Next', width: 120, isEnable: true,),
+            CustomButtonWidget(title: 'Previous', width: 120, isEnable: false, onTap: () { Navigator.pushNamed(context, '/tracer-pekerjaan-page'); },),
+            CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () { Navigator.pushNamed(context, '/tracer-study-selesai-page'); },),
           ],
         ),
       ),
