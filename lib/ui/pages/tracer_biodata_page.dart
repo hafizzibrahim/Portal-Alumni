@@ -9,10 +9,6 @@ class TracerBiodataPage extends StatelessWidget {
       backgroundColor: whiteblueColor,
       appBar: AppBar(
         title: const Text('Data Biodata'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 20),
@@ -66,7 +62,7 @@ class TracerBiodataPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () {  },),
+              CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () { Navigator.pushNamed(context, '/tracer-wisuda-page'); },),
             ],
           )
         ],

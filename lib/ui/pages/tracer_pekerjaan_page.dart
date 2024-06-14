@@ -8,7 +8,6 @@ class TracerPekerjaanPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteblueColor,
       appBar: AppBar(
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
         title: const Text('Data Pekerjaan'),
       ),
       body: ListView(
@@ -97,8 +96,8 @@ class TracerPekerjaanPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-             CustomButtonWidget(title: 'Preveous', width: 120,),
-             CustomButtonWidget(title: 'Next', width: 120,)
+             CustomButtonWidget(title: 'Previous', width: 120, isEnable: false, onTap: () { Navigator.pushNamed(context, '/tracer-wisuda-page'); },),
+             CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () { Navigator.pushNamed(context, '/tracer-studi-lanjut-page'); },),
            ],
           )
         ],

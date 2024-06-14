@@ -17,40 +17,31 @@ class _NavigationExampleState extends State<MainPage> {
         index: currentPageIndex,
         children: const <Widget>[
            HomePage(),
-          FormPage(),
+           TracerStudyPage(),
            ProfilePage(),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            // BoxShadow container
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(50),
-                  boxShadow: [
-                    BoxShadow(
-                      color: softGreyColor,
-                      blurRadius: 5,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
+      bottomNavigationBar:
+      Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          // BoxShadow container
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                color: whiteblueColor,
               ),
             ),
-            // Actual navigation bar container
-            ClipRRect(
+          ),
+          // Actual navigation bar container
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20, left: 16, right: 16),
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: Container(
-                color: softGreyColor,
                 child: NavigationBarTheme(
                   data: NavigationBarThemeData(
-                    indicatorColor: Colors.transparent,
+                    indicatorColor: whiteblueColor,
                     labelTextStyle: WidgetStateProperty.all(
                       TextStyle(color: blueColor),
                     ),
@@ -89,23 +80,9 @@ class _NavigationExampleState extends State<MainPage> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
-
-class FormPage extends StatelessWidget {
-  const FormPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('COba')
-      ],
-    );
-  }
-}
-

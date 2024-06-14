@@ -16,22 +16,40 @@ class _LoginPageState extends State<LoginPage> {
     final password = _passwordController.text;
     try {
       await login(email, password);
-      Navigator.pushNamed(context, '/main-page');
+
+      // Show success dialog
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Login Successful', style: blackTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),),
+            content: Text('Welcome to Portal Alumni !!'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    Navigator.pushNamed(context, '/main-page');
+                  },
+                  child: Text('Okay')
+              )
+            ],
+          )
+      );
+
     } catch (e) {
       print('Login Error: $e');
       showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-                title: Text('Login Failed'),
-                content: Text(e.toString()),
-                actions: <Widget>[
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text('Okay'))
-                ],
-              ));
+            title: Text('Login Failed', style: blackTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),),
+            content: Text(e.toString()),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text('Okay'))
+            ],
+          ));
     }
   }
 
@@ -43,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius:
-                const BorderRadius.vertical(bottom: Radius.circular(30)),
+            const BorderRadius.vertical(bottom: Radius.circular(30)),
             color: blueColor,
           ),
           child: Stack(
@@ -124,8 +142,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+
 Future<void> login(String email, String password) async {
-  final url = '#########################';
+  final url = 'https://immune-bull-smoothly.ngrok-free.app/api/users/login';
   final response = await http.post(
     Uri.parse(url),
     headers: {'Content-Type': 'aplication/json'},

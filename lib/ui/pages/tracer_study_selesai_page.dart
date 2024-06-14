@@ -29,12 +29,15 @@ class TracerStudySelesaiPage extends StatelessWidget {
                 SizedBox(height: 8,),
                 Text('Sudah Mengisi Form \nSukses Selalu !', style: blackTextStyle.copyWith(fontSize: 26, fontWeight: semiBold),),
                 SizedBox(height: 32,),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: blueColor
-                  ), child: Text('Kembali', style: whiteTextStyle.copyWith(fontSize: 15, fontWeight: bold),),
+                GestureDetector(
+                  onTap: (){Navigator.pushNamed(context, '/main-page');},
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: blueColor
+                    ), child: Text('Kembali', style: whiteTextStyle.copyWith(fontSize: 15, fontWeight: bold),),
+                  ),
                 ),
               ],
             ),

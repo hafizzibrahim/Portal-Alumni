@@ -40,8 +40,8 @@ class TracerWisudaPage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomButtonWidget(title: 'Previous', width: 120, isEnable: false, onTap: () {  },),
-            CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () {  },),
+            CustomButtonWidget(title: 'Previous', width: 120, isEnable: false, onTap: () { Navigator.pushNamed(context, '/tracer-biodata-page'); },),
+            CustomButtonWidget(title: 'Next', width: 120, isEnable: true, onTap: () { Navigator.pushNamed(context, '/tracer-pekerjaan-page'); },),
           ],
         ),
       ),

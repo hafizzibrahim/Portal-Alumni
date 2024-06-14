@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/widgets/widgets.dart';
 import 'package:readmore/readmore.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'home_page.dart';
 part 'login_page.dart';

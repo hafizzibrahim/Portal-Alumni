@@ -61,6 +61,9 @@ class HomePage extends StatelessWidget {
             'Recent Career',
             style: blackTextStyle.copyWith(fontSize: 12),
           ),
+          const SizedBox(
+            height: 16,
+          ),
           bannerSlider(context),
           const SizedBox(
             height: 55,
@@ -75,14 +78,14 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              shortcutWidget('assets/icons/ic_article.png', context, 'Article'),
+              shortcutWidget('assets/icons/ic_article.png', context, 'Article', (){Navigator.pushNamed(context, '/article-page');}),
               shortcutWidget(
-                  'assets/icons/ic_dashboard.png', context, 'Dashboard'),
-              shortcutWidget('assets/icons/ic_career.png', context, 'Career')
+                  'assets/icons/ic_dashboard.png', context, 'Dashboard', (){Navigator.pushNamed(context, '/article-page');}),
+              shortcutWidget('assets/icons/ic_career.png', context, 'Career', (){Navigator.pushNamed(context, '/career-page');})
             ],
           ),
           const SizedBox(
-            height: 55,
+            height: 16,
           ),
           Align(
               alignment: Alignment.topRight,
@@ -99,7 +102,8 @@ class HomePage extends StatelessWidget {
             date: '12 Mar',
             time: '5 min',
             articleImageUrl: 'assets/images/img_article_example.png',
-          )
+          ),
+          SizedBox(height: 16,),
         ],
       ),
     );
@@ -132,41 +136,44 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget shortcutWidget(String icon, BuildContext context, String title) {
-    return Column(
-      children: [
-        Container(
-          height: 56,
-          width: 56,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: const Color(0xFFEAEBFF),
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 8,
-                    spreadRadius: 1,
-                    offset: const Offset(-2, 3),
-                    color: greyColor),
-                BoxShadow(
-                    blurRadius: 8,
-                    spreadRadius: 1,
-                    offset: const Offset(2, -3),
-                    color: whiteColor),
-              ]),
-          child: Image.asset(
-            icon,
-            scale: 2.5,
+  Widget shortcutWidget(String icon, BuildContext context, String title, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            height: 56,
+            width: 56,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFFEAEBFF),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 8,
+                      spreadRadius: 1,
+                      offset: const Offset(-2, 3),
+                      color: greyColor),
+                  BoxShadow(
+                      blurRadius: 8,
+                      spreadRadius: 1,
+                      offset: const Offset(2, -3),
+                      color: whiteColor),
+                ]),
+            child: Image.asset(
+              icon,
+              scale: 2.5,
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          title,
-          style: blackTextStyle.copyWith(fontSize: 12, fontWeight: medium),
-        )
-      ],
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            title,
+            style: blackTextStyle.copyWith(fontSize: 12, fontWeight: medium),
+          )
+        ],
+      ),
     );
   }
 }

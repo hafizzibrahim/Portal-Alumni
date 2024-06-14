@@ -22,7 +22,7 @@ class CareerPage extends StatelessWidget {
                     whiteTextStyle.copyWith(fontWeight: medium, fontSize: 20),
               ),
               leading: IconButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pop(),
                   icon: Icon(
                     Icons.arrow_back_ios_new,
                     size: 30,

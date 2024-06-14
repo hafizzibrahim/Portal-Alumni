@@ -26,13 +26,25 @@ class MyApp extends StatelessWidget {
           )
       ),
       routes: {
-        '/': (context) => ArticlePage(),
+        '/': (context) =>  LoginPage(),
 
         '/login-page': (context) => const LoginPage(),
         '/main-page': (context) => MainPage(),
         '/home-page' : (context) => const HomePage(),
         '/profile-page' : (context) => const ProfilePage(),
         '/article-page' : (context) => const ArticlePage(),
+        '/article-detail-page' : (context) => const ArticleDetailPage(),
+        '/dashboard-page' : (context) => const DashboardPage(),
+        '/career-page' : (context) => const CareerPage(),
+        '/career-detail-page' : (context) => const CareerDetailPage(),
+
+        '/tracer-study-page' : (context) => const TracerStudyPage(),
+        '/tracer-biodata-page' : (context) => const TracerBiodataPage(),
+        '/tracer-wisuda-page' : (context) => const TracerWisudaPage(),
+        '/tracer-pekerjaan-page' : (context) => const TracerPekerjaanPage(),
+        '/tracer-studi-lanjut-page' : (context) => const TracerStudiLanjutPage(),
+        '/tracer-study-selesai-page' : (context) => const TracerStudySelesaiPage(),
+
       },
     );
   }
