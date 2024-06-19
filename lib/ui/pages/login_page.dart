@@ -1,55 +1,55 @@
 part of 'pages.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatelessWidget {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  Future<void> _login() async {
-    final email = _emailController.text;
-    final password = _passwordController.text;
+  Future<void> _login(BuildContext context) async {
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
     try {
-      await login(email, password);
+      await Provider.of<LoginViewModel>(context, listen: false).login(email, password);
 
       // Show success dialog
       showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Login Successful', style: blackTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),),
-            content: Text('Welcome to Portal Alumni !!'),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                    Navigator.pushNamed(context, '/main-page');
-                  },
-                  child: Text('Okay')
-              )
-            ],
-          )
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text(
+            'Login Successful',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: Text('Welcome to Portal Alumni !!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                Navigator.pushNamed(context, '/main-page');
+              },
+              child: Text('Okay'),
+            ),
+          ],
+        ),
       );
-
     } catch (e) {
       print('Login Error: $e');
       showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Login Failed', style: blackTextStyle.copyWith(fontSize: 18, fontWeight: semiBold),),
-            content: Text(e.toString()),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text('Okay'))
-            ],
-          ));
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            'Login Failed',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: Text(e.toString()),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('Okay'),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -57,11 +57,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(160),
+        preferredSize: Size.fromHeight(160),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius:
-            const BorderRadius.vertical(bottom: Radius.circular(30)),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
             color: blueColor,
           ),
           child: Stack(
@@ -72,12 +71,13 @@ class _LoginPageState extends State<LoginPage> {
                 fit: BoxFit.fill,
               ),
               Positioned(
-                  top: 30,
-                  right: 0,
-                  child: Image.asset(
-                    'assets/images/img_untirta_outlined.png',
-                    scale: 2,
-                  ))
+                top: 30,
+                right: 0,
+                child: Image.asset(
+                  'assets/images/img_untirta_outlined.png',
+                  scale: 2,
+                ),
+              ),
             ],
           ),
         ),
@@ -92,80 +92,43 @@ class _LoginPageState extends State<LoginPage> {
                   'assets/icons/ic_logo_untirta.png',
                   scale: 1.5,
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Text(
+                SizedBox(height: 24),
+                const Text(
                   'Selamat Datang',
-                  style: blueTextStyle.copyWith(
-                      fontSize: 22, fontWeight: extraBold),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                Text(
+                const Text(
                   'Di Portal Alumni',
-                  style: blackTextStyle.copyWith(
-                      fontSize: 17, fontWeight: extraBold),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 TextfieldWidget(
                   controller: _emailController,
                   label: 'Email',
                   obscureText: false,
                   icon: const Icon(Icons.email_rounded),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                SizedBox(height: 16),
                 TextfieldWidget(
                   controller: _passwordController,
-                  label: 'Password',
+                  label: 'Email',
                   obscureText: true,
-                  icon: const Icon(Icons.lock),
+                  icon: const Icon(Icons.email_rounded),
                 ),
-                const SizedBox(
-                  height: 32,
-                ),
+                SizedBox(height: 32),
                 CustomButtonWidget(
                   title: 'Masuk',
                   width: 250,
                   heigth: 55,
                   isEnable: true,
-                  onTap: _login,
-                )
+                  onTap: () => _login(context),
+                ),
               ],
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-
-Future<void> login(String email, String password) async {
-  final url = 'https://immune-bull-smoothly.ngrok-free.app/api/users/login';
-  final response = await http.post(
-    Uri.parse(url),
-    headers: {'Content-Type': 'aplication/json'},
-    body: jsonEncode({'email': email, 'password': password}),
-  );
-
-  if (response.statusCode == 200) {
-    final responseData = jsonDecode(response.body);
-    if (responseData['data'] != null) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', responseData['data']['token']);
-      await prefs.setString('userId', responseData['data']['id']);
-      await prefs.setString('email', responseData['data']['email']);
-      print('Login successful');
-    } else {
-      throw Exception('Failed to parse response');
-    }
-  } else {
-    print('Response Status Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
-    throw Exception('Failed to login');
   }
 }
 
