@@ -5,7 +5,16 @@ class SearchTextFieldWidget extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? suffixIcon;
   final String labelText;
-  const SearchTextFieldWidget({super.key, this.fillColor = const Color(0xffffffff), this.suffixIcon, required this.labelText, this.prefixIcon});
+  final ValueChanged<String>? onChanged; // Tambahkan parameter onChanged
+
+  const SearchTextFieldWidget({
+    super.key,
+    this.fillColor = const Color(0xffffffff),
+    this.suffixIcon,
+    required this.labelText,
+    this.prefixIcon,
+    this.onChanged, // Tambahkan onChanged ke konstruktor
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +24,12 @@ class SearchTextFieldWidget extends StatelessWidget {
         fillColor: fillColor,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        labelText: labelText,
+        hintText: labelText,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
             borderSide: BorderSide.none),
       ),
+      onChanged: onChanged, // Gunakan onChanged di sini
     );
   }
 }
