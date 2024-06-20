@@ -5,11 +5,21 @@ import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
 import 'package:portal_alumni_v1/viewmodels/login_viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
   // Bypass SSL verification (for development purposes only)
   HttpOverrides.global = MyHttpOverrides();
-  runApp(MyApp());
+
+  // Ensure that the Flutter bindings are initialized before using them
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Check if the user is already logged in
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token');
+  bool isLoggedIn = token != null;
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyHttpOverrides extends HttpOverrides {
@@ -22,6 +32,10 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class MyApp extends StatelessWidget {
+  final bool isLoggedIn;
+
+  const MyApp({required this.isLoggedIn});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -38,7 +52,7 @@ class MyApp extends StatelessWidget {
             titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
           ),
         ),
-        initialRoute: '/login-page', // Set initialRoute to your login page
+        initialRoute: isLoggedIn ? '/main-page' : '/login-page',
         routes: {
           '/login-page': (context) => LoginPage(),
           '/main-page': (context) => MainPage(),
