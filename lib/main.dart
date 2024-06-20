@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
+import 'package:portal_alumni_v1/viewmodels/careerpage_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/login_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,8 +39,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LoginViewModel()),
+        ChangeNotifierProvider(create: (context) => CareerViewModel()),
+      ],
       child: MaterialApp(
         title: 'Portal Alumni',
         theme: ThemeData(
