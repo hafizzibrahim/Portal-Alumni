@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:portal_alumni_v1/services/ApiService.dart';
 import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
+import 'package:portal_alumni_v1/viewmodels/article_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/careerpage_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/login_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -49,36 +50,40 @@ class MyApp extends StatelessWidget {
             apiService: Provider.of<ApiService>(context, listen: false),
           ),
         ),
+        ChangeNotifierProvider(create: (context) => ArticleViewmodel()),
       ],
       child: MaterialApp(
         title: 'Portal Alumni',
         theme: ThemeData(
-            scaffoldBackgroundColor: lightBackgroundColor,
-            appBarTheme: AppBarTheme(
-                backgroundColor: whiteColor,
-                elevation: 0,
-                iconTheme: IconThemeData(color: blackColor),
-                centerTitle: true,
-                titleTextStyle: blackTextStyle.copyWith(fontSize: 20, fontWeight: semiBold))),
+          scaffoldBackgroundColor: lightBackgroundColor,
+          appBarTheme: AppBarTheme(
+            backgroundColor: whiteColor,
+            elevation: 0,
+            iconTheme: IconThemeData(color: blackColor),
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+          ),
+        ),
         initialRoute: isLoggedIn ? '/main-page' : '/login-page',
         routes: {
-          // '/': (context) => CareerDetailPage(),
-
           '/login-page': (context) => LoginPage(),
           '/main-page': (context) => MainPage(),
-          '/home-page': (context) => const HomePage(),
+          '/home-page': (context) => HomePage(),
           '/profile-page': (context) => const ProfilePage(),
-          '/article-page': (context) => const ArticlePage(),
+          '/article-page': (context) => ArticlePage(),
           '/article-detail-page': (context) => const ArticleDetailPage(),
           '/dashboard-page': (context) => const DashboardPage(),
-          '/career-page': (context) => CareerPage(),
+          '/career-page': (context) => const CareerPage(),
           '/career-detail-page': (context) => const CareerDetailPage(),
           '/tracer-study-page': (context) => const TracerStudyPage(),
           '/tracer-biodata-page': (context) => const TracerBiodataPage(),
           '/tracer-wisuda-page': (context) => const TracerWisudaPage(),
           '/tracer-pekerjaan-page': (context) => const TracerPekerjaanPage(),
-          '/tracer-studi-lanjut-page': (context) => const TracerStudiLanjutPage(),
-          '/tracer-study-selesai-page': (context) => const TracerStudySelesaiPage(),
+          '/tracer-studi-lanjut-page': (context) =>
+              const TracerStudiLanjutPage(),
+          '/tracer-study-selesai-page': (context) =>
+              const TracerStudySelesaiPage(),
         },
       ),
     );
