@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../models/JobsModel.dart';
 import '../models/SurveyModel.dart';
 import '../models/UserModel.dart';
 import 'package:http/http.dart' as http;
@@ -29,6 +30,18 @@ class ApiService {
       return SurveyModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to submit survey');
+    }
+  }
+
+  Future<List<Job>> getJobs() async {
+    final String url = '$baseUrl/jobs';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body)['data'];
+      return jsonResponse.map((job) => Job.fromJson(job)).toList();
+    } else {
+      throw Exception('Failed to load jobs');
     }
   }
 }
