@@ -17,10 +17,26 @@ class ProfilePage extends StatelessWidget {
             textField('Fakultas', 'Teknik'),
             textField('Jurusan', 'Informatika'),
             textField('Tahun Lulus', '2025'),
+            SizedBox(height: 16,),
+            CustomButtonWidget(
+                title: 'Keluar',
+                width: 140,
+                heigth: 40,
+                onTap: () => _logout(context)
+            ),
+            SizedBox(height: 16,),
           ],
         ),
       ),
     );
+  }
+
+  void _logout(BuildContext context) async {
+    // Call the logout function from LoginViewModel
+    await Provider.of<LoginViewModel>(context, listen: false).logout();
+
+    // Navigate to the login page
+    Navigator.pushReplacementNamed(context, '/login-page');
   }
 
   Widget profileHeader(BuildContext context){
