@@ -1,69 +1,69 @@
 part of 'pages.dart';
 
 class CareerPage extends StatelessWidget {
-  const CareerPage({super.key});
+  const CareerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<CareerViewModel>(context, listen: false);
+
+    // Panggil fetchJobs saat CareerPage pertama kali dibangun
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel.fetchJobs();
+    });
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [lightBlue, darkBlue]),
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(25))),
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              title: Text(
-                'Untirta Career',
-                style:
-                    whiteTextStyle.copyWith(fontWeight: medium, fontSize: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [lightBlue, darkBlue]),
+            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(25)),
+          ),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            title: Text(
+              'Untirta Career',
+              style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 20),
+            ),
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                size: 30,
+                color: Colors.white,
               ),
-              leading: IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 30,
-                    color: whiteColor,
-                  )),
-            )),
+            ),
+          ),
+        ),
       ),
-      backgroundColor: whiteblueColor,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
-        children: [
-          SearchTextFieldWidget(
-            prefixIcon: Icon(
-              Icons.search,
-              color: darkBlue,
-              size: 26,
-            ),
-            suffixIcon: Icon(
-              Icons.filter_alt_outlined,
-              color: darkBlue,
-              size: 26,
-            ),
-            labelText: 'Search',
-          ),
-          const SizedBox(
-            height: 21,
-          ),
-          const CustomCard2Widget(
-            title: 'Head Rocket Engineer',
-            subTitle: 'National Aeronautics And Space Administration',
-            subTitle2: 'Washington D.C, U.S.A',
-            income: '\$20k - \$50k',
-          ),
-          const SizedBox(height: 20,),
-          const CustomCard2Widget(
-            title: 'Head Rocket Engineer',
-            subTitle: 'National Aeronautics And Space Administration',
-            subTitle2: 'Washington D.C, U.S.A',
-            income: '\$20k - \$50k',
-          )
-        ],
+      backgroundColor: Colors.blue[50],
+      body: Consumer<CareerViewModel>(
+        builder: (context, viewModel, child) {
+          if (viewModel.jobs.isEmpty) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
+              itemCount: viewModel.jobs.length,
+              itemBuilder: (context, index) {
+                final job = viewModel.jobs[index];
+                return Column(
+                  children: [
+                    CustomCard2Widget(
+                      title: job.title,
+                      subTitle: job.description,
+                      subTitle2: job.content,
+                      income: 'N/A', // Ganti dengan data gaji jika tersedia.
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
