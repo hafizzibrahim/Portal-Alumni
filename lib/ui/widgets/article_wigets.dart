@@ -47,6 +47,7 @@ class ArticleWigets extends StatelessWidget {
                 width: MediaQuery.of(context).size.width/2,
                   child: Text(
                 subtitle,
+                maxLines: 1,
                 style: blackTextStyle.copyWith(
                     fontSize: 11, fontWeight: FontWeight.bold),
               )),
