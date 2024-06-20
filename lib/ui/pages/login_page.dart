@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
-                Navigator.pushNamed(context, '/main-page');
+                Navigator.pushReplacementNamed(context, '/main-page');
               },
               child: Text('Okay'),
             ),
@@ -111,9 +111,9 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 16),
                 TextfieldWidget(
                   controller: _passwordController,
-                  label: 'Email',
+                  label: 'Password',
                   obscureText: true,
-                  icon: const Icon(Icons.email_rounded),
+                  icon: const Icon(Icons.lock),
                 ),
                 SizedBox(height: 32),
                 CustomButtonWidget(
