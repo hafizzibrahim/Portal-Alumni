@@ -17,8 +17,19 @@ class LoginViewModel extends ChangeNotifier {
       await prefs.setString('email', response.email);
 
       print('Login successful');
+      notifyListeners();
     } catch (e) {
       throw e;
     }
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('userId');
+    await prefs.remove('email');
+
+    print('Logout successful');
+    notifyListeners();
   }
 }
