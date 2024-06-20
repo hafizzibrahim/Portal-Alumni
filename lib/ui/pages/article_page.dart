@@ -1,10 +1,16 @@
 part of 'pages.dart';
 
 class ArticlePage extends StatelessWidget {
-  const ArticlePage({super.key});
+  ArticlePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<ArticleViewmodel>(context, listen: false);
+
+    // Panggil fetchJobs saat ArticlePage pertama kali dibangun
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel.getArticle();
+    });
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
@@ -31,67 +37,57 @@ class ArticlePage extends StatelessWidget {
             )),
       ),
       backgroundColor: whiteblueColor,
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
-        children: [
-          SearchTextFieldWidget(
-            suffixIcon: Icon(
-              Icons.search,
-              color: darkBlue,
-              size: 26,
-            ),
-            labelText: 'Search',
-          ),
-          const SizedBox(
-            height: 21,
-          ),
-          const ArticleWigets(
-              title: 'Nurdin',
-              subtitle: '3 Nutrisi Penting yang Dibutuhkan Oleh  Pelari',
-              description:
-                  'Itu adalah faktor penting yang harus adalah faktor penting yang harus.....',
-              imageUrl: 'assets/images/profile_photo.png',
-              date: '12 Mar',
-              time: '5 min',
-              articleImageUrl: 'assets/images/img_article_example.png'),
-          const SizedBox(
-            height: 21,
-          ),
-          const ArticleWigets(
-              title: 'Nurdin',
-              subtitle: '3 Nutrisi Penting yang Dibutuhkan Oleh  Pelari',
-              description:
-              'Itu adalah faktor penting yang harus adalah faktor penting yang harus.....',
-              imageUrl: 'assets/images/profile_photo.png',
-              date: '12 Mar',
-              time: '5 min',
-              articleImageUrl: 'assets/images/img_article_example.png'),
-          const SizedBox(
-            height: 21,
-          ),
-          const ArticleWigets(
-              title: 'Nurdin',
-              subtitle: '3 Nutrisi Penting yang Dibutuhkan Oleh  Pelari',
-              description:
-              'Itu adalah faktor penting yang harus adalah faktor penting yang harus.....',
-              imageUrl: 'assets/images/profile_photo.png',
-              date: '12 Mar',
-              time: '5 min',
-              articleImageUrl: 'assets/images/img_article_example.png'),
-          const SizedBox(
-            height: 21,
-          ),
-          const ArticleWigets(
-              title: 'Nurdin',
-              subtitle: '3 Nutrisi Penting yang Dibutuhkan Oleh  Pelari',
-              description:
-              'Itu adalah faktor penting yang harus adalah faktor penting yang harus.....',
-              imageUrl: 'assets/images/profile_photo.png',
-              date: '12 Mar',
-              time: '5 min',
-              articleImageUrl: 'assets/images/img_article_example.png'),
-        ],
-      ),
+      body: Consumer<ArticleViewmodel>(
+        builder: (context, viewModel, children) {
+          if (viewModel.articles.isEmpty) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 23),
+                  child: SearchTextFieldWidget(
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: darkBlue,
+                      size: 26,
+                    ),
+                    labelText: 'Search',
+                  ),
+                ),
+
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
+                    itemCount: viewModel.articles.length,
+                    itemBuilder: (context, index) {
+                      final article = viewModel.articles[index];
+                      return
+                        Column(
+                          children: [
+                            ArticleWigets(
+                                title: 'Nurdin',
+                                subtitle: article.title,
+                                description:
+                                article.content,
+                                imageUrl: 'assets/images/profile_photo.png',
+                                date: '12 Mar',
+                                time: '5 min',
+                                articleImageUrl: 'assets/images/img_article_example.png'),
+                            const SizedBox(
+                              height: 21,
+                            ),
+                  
+                          ],
+                        );
+                    }
+                  ),
+                ),
+              ],
+            );
+          }
+        },
+      )
     );
   }
 }
