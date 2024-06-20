@@ -38,7 +38,7 @@ class CareerPage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.blue[50],
+      backgroundColor: whiteblueColor,
       body: Consumer<CareerViewModel>(
         builder: (context, viewModel, child) {
           if (viewModel.jobs.isEmpty) {
