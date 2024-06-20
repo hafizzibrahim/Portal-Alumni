@@ -29,7 +29,7 @@ class CareerPage extends StatelessWidget {
             ),
             leading: IconButton(
               onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_ios_new,
                 size: 30,
                 color: Colors.white,
@@ -44,23 +44,58 @@ class CareerPage extends StatelessWidget {
           if (viewModel.jobs.isEmpty) {
             return Center(child: CircularProgressIndicator());
           } else {
-            return ListView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
-              itemCount: viewModel.jobs.length,
-              itemBuilder: (context, index) {
-                final job = viewModel.jobs[index];
-                return Column(
-                  children: [
-                    CustomCard2Widget(
-                      title: job.title,
-                      subTitle: job.description,
-                      subTitle2: job.content,
-                      income: 'N/A', // Ganti dengan data gaji jika tersedia.
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SearchTextFieldWidget(
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: darkBlue,
+                      size: 26,
                     ),
-                    const SizedBox(height: 20),
-                  ],
-                );
-              },
+                    labelText: 'Search',
+                    onChanged: (query) {
+                      viewModel.updateSearchQuery(query);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
+                    itemCount: viewModel.jobs.length,
+                    itemBuilder: (context, index) {
+                      final job = viewModel.jobs[index];
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CareerDetailPage(
+                                    title: job.title,
+                                    description: job.description,
+                                    content: job.content,
+                                    income: 'N/A', // Replace with salary data if available.
+                                  ),
+                                ),
+                              );
+                            },
+                            child: CustomCard2Widget(
+                              title: job.title,
+                              subTitle: job.description,
+                              subTitle2: job.content,
+                              income: 'N/A', // Replace with salary data if available.
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           }
         },
@@ -104,22 +139,25 @@ class CustomCard2Widget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      maxLines: 1,
                       title,
                       style: blackTextStyle.copyWith(
                           fontWeight: bold, fontSize: 15),
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 6,
                     ),
                     Text(
+                      maxLines: 1,
                       subTitle,
                       style: blackTextStyle.copyWith(
                           fontWeight: reguler, fontSize: 13),
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 6,
                     ),
                     Text(
+                      maxLines: 2,
                       subTitle2,
                       style: blackTextStyle.copyWith(
                           fontWeight: light, fontSize: 10),

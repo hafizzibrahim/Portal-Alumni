@@ -1,7 +1,18 @@
 part of 'pages.dart';
 
 class CareerDetailPage extends StatelessWidget {
-  const CareerDetailPage({super.key});
+  final String? title;
+  final String? description;
+  final String? content;
+  final String? income;
+
+  const CareerDetailPage({
+    super.key,
+    this.title,
+    this.description,
+    this.content,
+    this.income,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +24,13 @@ class CareerDetailPage extends StatelessWidget {
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [lightBlue, darkBlue]),
                 borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(25))),
+                const BorderRadius.vertical(bottom: Radius.circular(25))),
             child: AppBar(
               backgroundColor: Colors.transparent,
               title: Text(
                 'Untirta Career',
                 style:
-                    whiteTextStyle.copyWith(fontWeight: medium, fontSize: 20),
+                whiteTextStyle.copyWith(fontWeight: medium, fontSize: 20),
               ),
               leading: IconButton(
                   onPressed: () => Navigator.of(context).pop(),
@@ -38,9 +49,7 @@ class CareerDetailPage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          detailCareer(
-              'Can you bring creative human-centered ideas to life and make great things happen beyond what meets the eye?We believe in teamwork, fun, complex projects, diverse perspectives, and simple solutions. How about you? Were looking for a like-minded',
-              '- Someone who has ample work experience with synthesizing primary research, developing insight-driven product strategy, and extending that strategy into artefacts in a creative, systematic and logical fashion \n-Adapt and meticulous with creating user strategy into artefacts in a creative, systematic and logical fashion')
+          detailCareer(description!, content!)
         ],
       ),
       bottomNavigationBar: const Padding(
@@ -67,7 +76,7 @@ class CareerDetailPage extends StatelessWidget {
             scale: 1.7,
           ),
           Text(
-            'Head Rocket Engineer',
+            title!,
             style: blackTextStyle.copyWith(fontSize: 26, fontWeight: bold),
           ),
           Text(
@@ -102,7 +111,7 @@ class CareerDetailPage extends StatelessWidget {
                   Text(
                     'APPLY BEFORE',
                     style:
-                        blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
+                    blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
                   ),
                   Text(
                     '30 July, 2024',
@@ -115,27 +124,26 @@ class CareerDetailPage extends StatelessWidget {
                   Text(
                     'Salary Range',
                     style:
-                        blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
+                    blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
                   ),
                   Text(
-                    '\$ 20K - \$ 50K/month',
+                    income!,
                     style: blackTextStyle.copyWith(
                         fontSize: 14, fontWeight: reguler),
                   ),
                 ],
               ),
-              //const SizedBox(width: 40,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Job Nature',
                     style:
-                        blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
+                    blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
                   ),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                    const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: lightBlue),
@@ -151,7 +159,7 @@ class CareerDetailPage extends StatelessWidget {
                   Text(
                     'Job Location',
                     style:
-                        blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
+                    blackTextStyle.copyWith(fontSize: 11, fontWeight: bold),
                   ),
                   Text(
                     'On-Stie',
@@ -177,7 +185,7 @@ class CareerDetailPage extends StatelessWidget {
             trimCollapsedText: '...Show More',
             trimExpandedText: ' .Show Less',
             lessStyle:
-                TextStyle(fontSize: 11, fontWeight: bold, color: lightBlue),
+            TextStyle(fontSize: 11, fontWeight: bold, color: lightBlue),
             moreStyle: TextStyle(fontWeight: bold, color: lightBlue),
             style: blackTextStyle.copyWith(fontSize: 11, fontWeight: reguler),
           ),
@@ -196,7 +204,7 @@ class CareerDetailPage extends StatelessWidget {
             trimCollapsedText: '...Show More',
             trimExpandedText: ' .Show Less',
             lessStyle:
-                TextStyle(fontSize: 11, fontWeight: bold, color: lightBlue),
+            TextStyle(fontSize: 11, fontWeight: bold, color: lightBlue),
             moreStyle: TextStyle(fontWeight: bold, color: lightBlue),
             style: blackTextStyle.copyWith(fontSize: 11, fontWeight: reguler),
           ),

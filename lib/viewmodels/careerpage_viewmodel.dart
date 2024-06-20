@@ -3,16 +3,37 @@ import 'package:flutter/cupertino.dart';
 import '../models/JobsModel.dart';
 import '../services/ApiService.dart';
 
-class CareerViewModel extends ChangeNotifier {
-  final ApiService apiService = ApiService();
-  List<Job> jobs = [];
+class CareerViewModel with ChangeNotifier {
+  final ApiService apiService;
+
+  CareerViewModel({required this.apiService});
+
+  List<Job> _jobs = [];
+  List<Job> _filteredJobs = [];
+  String _searchQuery = '';
+
+  List<Job> get jobs => _filteredJobs;
 
   Future<void> fetchJobs() async {
     try {
-      jobs = await apiService.getJobs();
+      _jobs = await apiService.getJobs();
+      _filteredJobs = _jobs;
       notifyListeners();
     } catch (e) {
-      print('Error fetching jobs: $e');
+      // Handle error
+      print(e);
     }
+  }
+
+  void updateSearchQuery(String query) {
+    _searchQuery = query;
+    if (_searchQuery.isEmpty) {
+      _filteredJobs = _jobs;
+    } else {
+      _filteredJobs = _jobs.where((job) {
+        return job.title.toLowerCase().contains(_searchQuery.toLowerCase());
+      }).toList();
+    }
+    notifyListeners();
   }
 }
