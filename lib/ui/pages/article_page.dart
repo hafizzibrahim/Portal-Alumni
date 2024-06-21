@@ -33,7 +33,8 @@ class ArticlePage extends StatelessWidget {
                     Icons.arrow_back_ios_new,
                     size: 30,
                     color: whiteColor,
-                  )),
+                  )
+              ),
             )),
       ),
       backgroundColor: whiteblueColor,
@@ -53,6 +54,9 @@ class ArticlePage extends StatelessWidget {
                       size: 26,
                     ),
                     labelText: 'Search',
+                    onChanged: (query) {
+                      viewModel.updateSearchArticleQuery(query);
+                    },
                   ),
                 ),
 
