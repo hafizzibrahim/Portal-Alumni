@@ -4,7 +4,8 @@ class DropdownMenuWidget extends StatelessWidget {
   final double height;
   final List<DropdownMenuEntry<String>> listValue;
   final String label;
-  const DropdownMenuWidget({super.key, required this.height, required this.label, required this.listValue,});
+  final TextEditingController controller;
+  const DropdownMenuWidget({super.key, required this.height, required this.label, required this.listValue, required this.controller,});
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +15,12 @@ class DropdownMenuWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: blackTextStyle.copyWith(fontWeight: medium, fontSize: 16),),
+        Text(label, style: blackTextStyle.copyWith(fontWeight: bold, fontSize: 14),),
         const SizedBox(height: 10,),
         SizedBox(
           width: availableWidth,
           child: DropdownMenu<String>(
+            controller: controller,
             width: availableWidth,
             enableSearch: false,
             dropdownMenuEntries: listValue,
