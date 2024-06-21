@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:portal_alumni_v1/services/ApiService.dart';
 import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
+import 'package:portal_alumni_v1/viewmodels/article_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/careerpage_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/login_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/survey_viewmodel.dart';
@@ -51,6 +52,11 @@ class MyApp extends StatelessWidget {
             apiService: Provider.of<ApiService>(context, listen: false),
           ),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ArticleViewmodel(
+            apiService: Provider.of<ApiService>(context, listen: false),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Portal Alumni',
@@ -70,7 +76,7 @@ class MyApp extends StatelessWidget {
           '/main-page': (context) => MainPage(),
           '/home-page': (context) => const HomePage(),
           '/profile-page': (context) => const ProfilePage(),
-          '/article-page': (context) => const ArticlePage(),
+          '/article-page': (context) => ArticlePage(),
           '/article-detail-page': (context) => const ArticleDetailPage(),
           '/dashboard-page': (context) => const DashboardPage(),
           '/career-page': (context) => CareerPage(),

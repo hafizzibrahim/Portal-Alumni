@@ -4,10 +4,11 @@ import '../models/article_model.dart';
 import '../services/ApiService.dart';
 
 class ArticleViewmodel extends ChangeNotifier {
-  final ApiService apiService = ApiService();
+  final ApiService apiService;
+
+  ArticleViewmodel({required this.apiService});
 
   List<ArticleModel> _articles = [];
-
   List<ArticleModel> _filteredArticle = [];
   String _searchQuery = '';
 
@@ -16,9 +17,10 @@ class ArticleViewmodel extends ChangeNotifier {
   Future<void> getArticle() async {
     try {
       _articles = await apiService.getArticle();
+      _filteredArticle = _articles; // Update filtered articles
       notifyListeners();
     } catch (e) {
-      print('Error fetching jobs: $e');
+      print('Error fetching articles: $e');
     }
   }
 
@@ -27,8 +29,8 @@ class ArticleViewmodel extends ChangeNotifier {
     if (_searchQuery.isEmpty) {
       _filteredArticle = _articles;
     } else {
-      _filteredArticle = _articles.where((job) {
-        return job.title.toLowerCase().contains(_searchQuery.toLowerCase());
+      _filteredArticle = _articles.where((article) {
+        return article.title.toLowerCase().contains(_searchQuery.toLowerCase());
       }).toList();
     }
     notifyListeners();
