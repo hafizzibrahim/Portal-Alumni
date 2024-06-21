@@ -68,14 +68,27 @@ class ArticlePage extends StatelessWidget {
                       final article = viewModel.articles[index];
                       return Column(
                         children: [
-                          ArticleWigets(
-                            title: 'Nurdin',
-                            subtitle: article.title,
-                            description: article.content,
-                            imageUrl: 'assets/images/profile_photo.png',
-                            date: '12 Mar',
-                            time: '5 min',
-                            articleImageUrl: 'assets/images/img_article_example.png',
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ArticleDetailPage(
+                                    title : article.title,
+                                    content : article.content,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ArticleWigets(
+                              title: 'Nurdin',
+                              subtitle: article.title,
+                              description: article.content,
+                              imageUrl: 'assets/images/profile_photo.png',
+                              date: '12 Mar',
+                              time: '5 min',
+                              articleImageUrl: 'assets/images/img_article_example.png',
+                            ),
                           ),
                           const SizedBox(height: 21),
                         ],
