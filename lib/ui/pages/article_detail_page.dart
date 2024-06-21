@@ -1,7 +1,9 @@
 part of 'pages.dart';
 
 class ArticleDetailPage extends StatelessWidget {
-  const ArticleDetailPage({super.key});
+  final String? title;
+  final String? content;
+  const ArticleDetailPage({super.key, this.title, this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class ArticleDetailPage extends StatelessWidget {
               child: Image.asset('assets/images/img_detail_article.png')
           ),
           const SizedBox(height: 16,),
-          Text('3 Nutrisi Penting Yang Dibutuhkan Oleh Pelari', style: blackTextStyle.copyWith(fontSize: 26, fontWeight: bold),),
+          Text(title!, style: blackTextStyle.copyWith(fontSize: 26, fontWeight: bold),),
           const SizedBox(height: 16,),
           Row(
             children: [
@@ -69,9 +71,7 @@ class ArticleDetailPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16,),
-          Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n'
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n'
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n', style: blackTextStyle.copyWith(fontWeight: reguler, fontSize: 14), textAlign: TextAlign.justify,)
+          Text(content!, style: blackTextStyle.copyWith(fontWeight: reguler, fontSize: 14), textAlign: TextAlign.justify,)
 
         ],
       ),
