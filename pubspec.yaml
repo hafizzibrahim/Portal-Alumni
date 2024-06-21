@@ -38,6 +38,9 @@ dependencies:
   google_fonts: ^6.1.0
   carousel_slider: ^4.2.1
   readmore: ^3.0.0
+  http: ^1.2.1
+  shared_preferences: ^2.2.3
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

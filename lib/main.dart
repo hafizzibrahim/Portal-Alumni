@@ -70,8 +70,6 @@ class MyApp extends StatelessWidget {
                 titleTextStyle: blackTextStyle.copyWith(fontSize: 20, fontWeight: semiBold))),
         initialRoute: isLoggedIn ? '/main-page' : '/login-page',
         routes: {
-          // '/': (context) => CareerDetailPage(),
-
           '/login-page': (context) => LoginPage(),
           '/main-page': (context) => MainPage(),
           '/home-page': (context) => const HomePage(),
@@ -82,10 +80,6 @@ class MyApp extends StatelessWidget {
           '/career-page': (context) => CareerPage(),
           '/career-detail-page': (context) => const CareerDetailPage(),
           '/tracer-study-page': (context) => const TracerStudyPage(),
-          // '/tracer-biodata-page': (context) => const TracerBiodataPage(),
-          // '/tracer-wisuda-page': (context) => const TracerWisudaPage(),
-          // '/tracer-pekerjaan-page': (context) => const TracerPekerjaanPage(),
-          // '/tracer-studi-lanjut-page': (context) => const TracerStudiLanjutPage(),
           '/survey-page': (context) => const SurveyPage(),
           '/tracer-study-selesai-page': (context) => const TracerStudySelesaiPage(),
         },

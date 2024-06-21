@@ -29,7 +29,12 @@ class ApiService {
     });
 
     if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body));
+      final user = UserModel.fromJson(jsonDecode(response.body));
+      // Simpan token setelah login
+      setAuthToken(user.token);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', user.token);
+      return user;
     } else {
       throw Exception('Failed to login');
     }
@@ -62,11 +67,20 @@ class ApiService {
       String namaKampus,
       ) async {
     final String url = '$baseUrl/survey';
+
+    // Ambil token dari SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Token tidak ditemukan. Harap login kembali.');
+    }
+
     final response = await http.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer c796d218-dc49-400d-9aad-6db765de14b1',
+        'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
         'nama': nama,
@@ -104,8 +118,6 @@ class ApiService {
       throw Exception('Gagal Mengirim');
     }
   }
-
-
 
   Future<List<Job>> getJobs() async {
     final String url = '$baseUrl/jobs';

@@ -111,25 +111,25 @@ class _SurveyTestState extends State<SurveyPage> {
           namaProdiDiambil,
           namaKampus,);
 
-      // showDialog(
-      //   context: context,
-      //   builder: (ctx) => AlertDialog(
-      //     title: const Text(
-      //       'Login Successful',
-      //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      //     ),
-      //     content: const Text('Data Berhasil Dikirim'),
-      //     actions: <Widget>[
-      //       TextButton(
-      //         onPressed: () {
-      //           Navigator.of(ctx).pop();
-      //           Navigator.pushReplacementNamed(context, '/tracer-study-selesai-page');
-      //         },
-      //         child: const Text('Okay'),
-      //       ),
-      //     ],
-      //   ),
-      // );
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text(
+            'Login Successful',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: const Text('Data Berhasil Dikirim'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                Navigator.pushReplacementNamed(context, '/tracer-study-selesai-page');
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        ),
+      );
 
     } catch (e) {
       print('Submit Error : $e');
