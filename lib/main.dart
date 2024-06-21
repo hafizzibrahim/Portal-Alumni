@@ -6,6 +6,7 @@ import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
 import 'package:portal_alumni_v1/viewmodels/careerpage_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/login_viewmodel.dart';
+import 'package:portal_alumni_v1/viewmodels/survey_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<ApiService>(create: (_) => ApiService()),
         ChangeNotifierProvider(create: (context) => LoginViewModel()),
+        ChangeNotifierProvider(create: (context) => SurveyViewModel()),
         ChangeNotifierProvider(
           create: (context) => CareerViewModel(
             apiService: Provider.of<ApiService>(context, listen: false),
@@ -74,10 +76,11 @@ class MyApp extends StatelessWidget {
           '/career-page': (context) => CareerPage(),
           '/career-detail-page': (context) => const CareerDetailPage(),
           '/tracer-study-page': (context) => const TracerStudyPage(),
-          '/tracer-biodata-page': (context) => const TracerBiodataPage(),
-          '/tracer-wisuda-page': (context) => const TracerWisudaPage(),
-          '/tracer-pekerjaan-page': (context) => const TracerPekerjaanPage(),
-          '/tracer-studi-lanjut-page': (context) => const TracerStudiLanjutPage(),
+          // '/tracer-biodata-page': (context) => const TracerBiodataPage(),
+          // '/tracer-wisuda-page': (context) => const TracerWisudaPage(),
+          // '/tracer-pekerjaan-page': (context) => const TracerPekerjaanPage(),
+          // '/tracer-studi-lanjut-page': (context) => const TracerStudiLanjutPage(),
+          '/survey-page': (context) => const SurveyPage(),
           '/tracer-study-selesai-page': (context) => const TracerStudySelesaiPage(),
         },
       ),
