@@ -1,5 +1,4 @@
 class SurveyModel {
-  final String id;
   final String nama;
   final int nim;
   final String fakultas;
@@ -26,7 +25,6 @@ class SurveyModel {
   final String namaKampus;
 
   SurveyModel({
-    required this.id,
     required this.nama,
     required this.nim,
     required this.fakultas,
@@ -55,7 +53,6 @@ class SurveyModel {
 
   factory SurveyModel.fromJson(Map<String, dynamic> json) {
     return SurveyModel(
-      id: json['data']['id'],
       nama: json['data']['nama'],
       nim: json['data']['nim'],
       fakultas: json['data']['fakultas'],
