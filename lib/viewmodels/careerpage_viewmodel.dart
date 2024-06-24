@@ -11,18 +11,25 @@ class CareerViewModel with ChangeNotifier {
   List<Job> _jobs = [];
   List<Job> _filteredJobs = [];
   String _searchQuery = '';
+  bool _isLoading = false;
 
   List<Job> get jobs => _filteredJobs;
+  bool get isLoading => _isLoading;
 
   Future<void> fetchJobs() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
       _jobs = await apiService.getJobs();
       _filteredJobs = _jobs;
-      notifyListeners();
     } catch (e) {
       // Handle error
       print(e);
     }
+
+    _isLoading = false;
+    notifyListeners();
   }
 
   void updateSearchQuery(String query) {

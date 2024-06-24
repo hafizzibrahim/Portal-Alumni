@@ -5,7 +5,7 @@ class ArticlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<ArticleViewmodel>(context, listen: false);
+    final viewModel = Provider.of<ArticleViewModel>(context, listen: false);
 
     // Panggil fetchJobs saat ArticlePage pertama kali dibangun
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -39,29 +39,39 @@ class ArticlePage extends StatelessWidget {
         ),
       ),
       backgroundColor: whiteblueColor,
-      body: Consumer<ArticleViewmodel>(
-        builder: (context, viewModel, children) {
-          if (viewModel.articles.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 23),
-                  child: SearchTextFieldWidget(
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: darkBlue,
-                      size: 26,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 23),
+            child: SearchTextFieldWidget(
+              suffixIcon: Icon(
+                Icons.search,
+                color: darkBlue,
+                size: 26,
+              ),
+              labelText: 'Search',
+              onChanged: (query) {
+                viewModel.updateSearchArticleQuery(query);
+              },
+            ),
+          ),
+          Expanded(
+            child: Consumer<ArticleViewModel>(
+              builder: (context, viewModel, child) {
+                if (viewModel.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (viewModel.articles.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No articles found.',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black54,
+                      ),
                     ),
-                    labelText: 'Search',
-                    onChanged: (query) {
-                      viewModel.updateSearchArticleQuery(query);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
+                  );
+                } else {
+                  return ListView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
                     itemCount: viewModel.articles.length,
                     itemBuilder: (context, index) {
@@ -74,32 +84,32 @@ class ArticlePage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ArticleDetailPage(
-                                    title : article.title,
-                                    content : article.content,
+                                    title: article.title,
+                                    content: article.content,
                                   ),
                                 ),
                               );
                             },
                             child: ArticleWigets(
-                              title: 'Nurdin',
+                              title: 'Nurdin', // Ganti dengan data sesuai artikel
                               subtitle: article.title,
                               description: article.content,
-                              imageUrl: 'assets/images/profile_photo.png',
-                              date: '12 Mar',
-                              time: '5 min',
-                              articleImageUrl: 'assets/images/img_article_example.png',
+                              imageUrl: 'assets/images/profile_photo.png', // Ganti dengan gambar profil
+                              date: '12 Mar', // Ganti dengan tanggal artikel
+                              time: '5 min', // Ganti dengan estimasi waktu baca
+                              articleImageUrl: 'assets/images/img_article_example.png', // Ganti dengan gambar artikel
                             ),
                           ),
                           const SizedBox(height: 21),
                         ],
                       );
                     },
-                  ),
-                ),
-              ],
-            );
-          }
-        },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -3,33 +3,40 @@ import 'package:flutter/cupertino.dart';
 import '../models/article_model.dart';
 import '../services/ApiService.dart';
 
-class ArticleViewmodel extends ChangeNotifier {
+class ArticleViewModel with ChangeNotifier {
   final ApiService apiService;
 
-  ArticleViewmodel({required this.apiService});
+  ArticleViewModel({required this.apiService});
 
   List<ArticleModel> _articles = [];
-  List<ArticleModel> _filteredArticle = [];
+  List<ArticleModel> _filteredArticles = [];
   String _searchQuery = '';
+  bool _isLoading = false;
 
-  List<ArticleModel> get articles => _filteredArticle;
+  List<ArticleModel> get articles => _filteredArticles;
+  bool get isLoading => _isLoading;
 
   Future<void> getArticle() async {
+    _isLoading = true;
+    notifyListeners();
+
     try {
       _articles = await apiService.getArticle();
-      _filteredArticle = _articles; // Update filtered articles
-      notifyListeners();
+      _filteredArticles = _articles; // Update filtered articles
     } catch (e) {
       print('Error fetching articles: $e');
     }
+
+    _isLoading = false;
+    notifyListeners();
   }
 
   void updateSearchArticleQuery(String query) {
     _searchQuery = query;
     if (_searchQuery.isEmpty) {
-      _filteredArticle = _articles;
+      _filteredArticles = _articles;
     } else {
-      _filteredArticle = _articles.where((article) {
+      _filteredArticles = _articles.where((article) {
         return article.title.toLowerCase().contains(_searchQuery.toLowerCase());
       }).toList();
     }

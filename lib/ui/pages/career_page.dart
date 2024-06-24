@@ -39,29 +39,39 @@ class CareerPage extends StatelessWidget {
         ),
       ),
       backgroundColor: whiteblueColor,
-      body: Consumer<CareerViewModel>(
-        builder: (context, viewModel, child) {
-          if (viewModel.jobs.isEmpty) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SearchTextFieldWidget(
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: darkBlue,
-                      size: 26,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SearchTextFieldWidget(
+              suffixIcon: Icon(
+                Icons.search,
+                color: darkBlue,
+                size: 26,
+              ),
+              labelText: 'Search',
+              onChanged: (query) {
+                viewModel.updateSearchQuery(query);
+              },
+            ),
+          ),
+          Expanded(
+            child: Consumer<CareerViewModel>(
+              builder: (context, viewModel, child) {
+                if (viewModel.isLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (viewModel.jobs.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No jobs found.',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black54,
+                      ),
                     ),
-                    labelText: 'Search',
-                    onChanged: (query) {
-                      viewModel.updateSearchQuery(query);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
+                  );
+                } else {
+                  return ListView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 23, horizontal: 17),
                     itemCount: viewModel.jobs.length,
                     itemBuilder: (context, index) {
@@ -93,28 +103,31 @@ class CareerPage extends StatelessWidget {
                         ],
                       );
                     },
-                  ),
-                ),
-              ],
-            );
-          }
-        },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+
 
 class CustomCard2Widget extends StatelessWidget {
   final String title;
   final String subTitle;
   final String subTitle2;
   final String income;
-  const CustomCard2Widget(
-      {super.key,
-      required this.title,
-      required this.subTitle,
-      required this.subTitle2,
-      required this.income});
+  const CustomCard2Widget({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.subTitle2,
+    required this.income,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,17 +143,18 @@ class CustomCard2Widget extends StatelessWidget {
             children: [
               Expanded(
                   child: Image.asset(
-                'assets/images/img_nasa.png',
-                scale: 1.2,
-              )),
+                    'assets/images/img_nasa.png',
+                    scale: 1.2,
+                  )),
               Expanded(
                 flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      maxLines: 1,
                       title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: blackTextStyle.copyWith(
                           fontWeight: bold, fontSize: 15),
                     ),
@@ -148,8 +162,9 @@ class CustomCard2Widget extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      maxLines: 1,
                       subTitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: blackTextStyle.copyWith(
                           fontWeight: reguler, fontSize: 13),
                     ),
@@ -157,8 +172,9 @@ class CustomCard2Widget extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      maxLines: 2,
                       subTitle2,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: blackTextStyle.copyWith(
                           fontWeight: light, fontSize: 10),
                     ),
@@ -207,7 +223,7 @@ class CustomCard2Widget extends StatelessWidget {
                   Text(
                     income,
                     style:
-                        blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),
+                    blackTextStyle.copyWith(fontSize: 12, fontWeight: bold),
                   ),
                   Text(
                     '\\month',
