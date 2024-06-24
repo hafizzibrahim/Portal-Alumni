@@ -1,78 +1,89 @@
 part of 'pages.dart';
+// Ganti dengan path yang sesuai
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteblueColor,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            profileHeader(context),
-            const SizedBox(height: 40,),
-            textField('Nama Lengkap', 'Mulyadi'),
-            textField('Nim', '33372xxxxx'),
-            textField('Fakultas', 'Teknik'),
-            textField('Jurusan', 'Informatika'),
-            textField('Tahun Lulus', '2025'),
-            SizedBox(height: 16,),
-            CustomButtonWidget(
-                title: 'Keluar',
-                width: 140,
-                heigth: 40,
-                onTap: () => _logout(context)
-            ),
-            SizedBox(height: 16,),
-          ],
+        child: Consumer<LoginViewModel>(
+          builder: (context, loginViewModel, _) {
+            return FutureBuilder<UserModel>(
+              future: loginViewModel.getCurrentUser(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  final currentUser = snapshot.data!;
+                  return Column(
+                    children: [
+                      profileHeader(currentUser),
+                      SizedBox(height: 40),
+                      textField('Nama Lengkap', 'Mulyadi'), // Ganti dengan data dari API jika tersedia
+                      textField('Nim', '33372xxxxx'), // Ganti dengan data dari API jika tersedia
+                      textField('Fakultas', 'Teknik'), // Ganti dengan data dari API jika tersedia
+                      textField('Jurusan', 'Informatika'), // Ganti dengan data dari API jika tersedia
+                      textField('Tahun Lulus', '2025'), // Ganti dengan data dari API jika tersedia
+                      SizedBox(height: 16),
+                      CustomButtonWidget(
+                        title: 'Keluar',
+                        width: 140,
+                        heigth: 40,
+                        onTap: () => _logout(context),
+                      ),
+                      SizedBox(height: 16),
+                    ],
+                  );
+                }
+              },
+            );
+          },
         ),
       ),
     );
   }
 
   void _logout(BuildContext context) async {
-    // Call the logout function from LoginViewModel
     await Provider.of<LoginViewModel>(context, listen: false).logout();
-
-    // Navigate to the login page
     Navigator.pushReplacementNamed(context, '/login-page');
   }
 
-  Widget profileHeader(BuildContext context){
+  Widget profileHeader(UserModel user) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              bottomRight: Radius.circular(50)),
-          gradient: LinearGradient(
-              colors: [Color(0xFF5356FF), Color(0xFF221FBB)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(50),
+          bottomRight: Radius.circular(50),
+        ),
+        gradient: LinearGradient(
+          colors: [Color(0xFF5356FF), Color(0xFF221FBB)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.only(top: 50, bottom: 20),
         child: Column(
           children: <Widget>[
-            const SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Image.asset(
               'assets/images/profile_photo.png',
               scale: 1.5,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(height: 20),
+            Text(
+              'Mulyadi', // Ganti dengan nama dari data pengguna
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white), // Sesuaikan dengan gaya teks yang Anda inginkan
             ),
             Text(
-              'Mulyadi',
-              style:
-              whiteTextStyle.copyWith(fontSize: 16, fontWeight: bold),
-            ),
-            Text(
-              '33372xxxxx@untirta.ac.id',
-              style: whiteTextStyle.copyWith(
-                  fontSize: 13, fontWeight: reguler),
+              user.email, // Menampilkan email dari data pengguna
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal, color: Colors.white), // Sesuaikan dengan gaya teks yang Anda inginkan
             )
           ],
         ),
@@ -80,7 +91,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget textField(String title, String name) {
+  Widget textField(String title, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
       child: Column(
@@ -88,21 +99,19 @@ class ProfilePage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: blackTextStyle.copyWith(fontSize: 13, fontWeight: bold),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black), // Sesuaikan dengan gaya teks yang Anda inginkan
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          SizedBox(height: 8),
           TextField(
             readOnly: true,
             decoration: InputDecoration(
-              hintText: name,
+              hintText: value,
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(14),
               ),
               filled: true,
-              fillColor: whiteColor,
+              fillColor: whiteColor, // Sesuaikan dengan warna latar belakang yang Anda inginkan
             ),
           ),
         ],
