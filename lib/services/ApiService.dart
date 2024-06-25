@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/JobsModel.dart';
+import '../models/StatisticDataModel.dart';
 import '../models/SurveyModel.dart';
 import '../models/UserModel.dart';
 import 'package:http/http.dart' as http;
@@ -39,6 +40,7 @@ class ApiService {
       throw Exception('Failed to login');
     }
   }
+
 
   Future<SurveyModel> submitSurvey(
       String nama,
@@ -140,6 +142,17 @@ class ApiService {
       return jsonResponse.map((articles) => ArticleModel.fromJson(articles)).toList();
     } else {
       throw Exception('Failed to load articles');
+    }
+  }
+
+  Future<StatisticResponse> fetchStatistics() async {
+    final String url = '$baseUrl/statistic';
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      return StatisticResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load statistics');
     }
   }
 }
