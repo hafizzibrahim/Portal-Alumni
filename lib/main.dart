@@ -6,6 +6,7 @@ import 'package:portal_alumni_v1/shared/shared.dart';
 import 'package:portal_alumni_v1/ui/pages/pages.dart';
 import 'package:portal_alumni_v1/viewmodels/article_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/careerpage_viewmodel.dart';
+import 'package:portal_alumni_v1/viewmodels/dashoard_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/login_viewmodel.dart';
 import 'package:portal_alumni_v1/viewmodels/survey_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-          create: (context) => ArticleViewmodel(
+          create: (context) => ArticleViewModel(
+            apiService: Provider.of<ApiService>(context, listen: false),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DashoardViewmodel(
             apiService: Provider.of<ApiService>(context, listen: false),
           ),
         ),
@@ -71,13 +77,13 @@ class MyApp extends StatelessWidget {
         initialRoute: isLoggedIn ? '/main-page' : '/login-page',
         routes: {
           '/login-page': (context) => LoginPage(),
-          '/main-page': (context) => MainPage(),
+          '/main-page': (context) => const MainPage(),
           '/home-page': (context) => const HomePage(),
           '/profile-page': (context) => const ProfilePage(),
           '/article-page': (context) => ArticlePage(),
           '/article-detail-page': (context) => const ArticleDetailPage(),
           '/dashboard-page': (context) => const DashboardPage(),
-          '/career-page': (context) => CareerPage(),
+          '/career-page': (context) => const CareerPage(),
           '/career-detail-page': (context) => const CareerDetailPage(),
           '/tracer-study-page': (context) => const TracerStudyPage(),
           '/survey-page': (context) => const SurveyPage(),
