@@ -5,6 +5,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<ArticleViewModel>(context, listen: false);
+
+    // Panggil fetchJobs saat ArticlePage pertama kali dibangun
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel.getArticle();
+    });
+
     return Scaffold(
       backgroundColor: whiteblueColor,
       appBar: PreferredSize(
@@ -17,7 +24,7 @@ class HomePage extends StatelessWidget {
                 bottomRight: Radius.circular(25)),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 18),
             child: Consumer<LoginViewModel>(
               builder: (context, loginViewModel, _) {
                 return FutureBuilder<UserModel>(
@@ -124,16 +131,63 @@ class HomePage extends StatelessWidget {
                   },
                   child: Text('Lihat Semua',
                       style: greyTextStyle.copyWith(fontSize: 12)))),
-          const ArticleWigets(
-            imageUrl: 'assets/images/profile_photo.png',
-            title: 'Mulyadi',
-            subtitle: '3 Nutrisi Penting yang Dibutuhkan Oleh  Pelari',
-            description:
-            'Itu adalah faktor penting yang harus adalah faktor penting yang harus aksdnkfkdnfkns',
-            date: '12 Mar',
-            time: '5 min',
-            articleImageUrl: 'assets/images/img_article_example.png',
-          ),
+      Expanded(
+        child: Consumer<ArticleViewModel>(
+          builder: (context, viewModel, child) {
+            if (viewModel.isLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (viewModel.articles.isEmpty) {
+              return Center(
+                child: Text(
+                  'No articles found.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black54,
+                  ),
+                ),
+              );
+            } else {
+              final latestArticles = viewModel.articles.take(3).toList();
+              return ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: latestArticles.length,
+                itemBuilder: (context, index) {
+                  final article = latestArticles[index];
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ArticleDetailPage(
+                                title: article.title,
+                                content: article.content,
+                              ),
+                            ),
+                          );
+                        },
+                        child: ArticleWigets(
+                          title: 'Nurdin',
+                          subtitle: article.title,
+                          description: article.content,
+                          imageUrl: 'assets/images/profile_photo.png',
+                          date: '12 Mar',
+                          time: '5 min',
+                          articleImageUrl: 'assets/images/img_article_example.png',
+                        ),
+                      ),
+                            const SizedBox(height: 21),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+      ),
           SizedBox(
             height: 16,
           ),
