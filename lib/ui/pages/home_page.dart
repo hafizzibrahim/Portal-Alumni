@@ -18,33 +18,54 @@ class HomePage extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Halo Mulyadi!',
-                        style: blackTextStyle.copyWith(
-                            fontSize: 20, fontWeight: bold),
-                      ),
-                      Text(
-                        'Selamat Datang di Portal ALumni',
-                        style: blackTextStyle.copyWith(
-                            fontSize: 12, fontWeight: medium),
-                      )
-                    ],
-                  ),
-                ),
-                Image.asset(
-                  'assets/images/profile_photo.png',
-                  scale: 2.5,
-                ),
-              ],
+            child: Consumer<LoginViewModel>(
+              builder: (context, loginViewModel, _) {
+                return FutureBuilder<UserModel>(
+                  future: loginViewModel.getCurrentUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      final currentUser = snapshot.data!;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Halo ${currentUser.nama}!',
+                                  style: blackTextStyle.copyWith(
+                                      fontSize: 20, fontWeight: bold),
+                                ),
+                                Text(
+                                  'Selamat Datang di Portal Alumni',
+                                  style: blackTextStyle.copyWith(
+                                      fontSize: 12, fontWeight: medium),
+                                )
+                              ],
+                            ),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(
+                              currentUser.imagePath,
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                );
+              },
             ),
           ),
         ),
@@ -78,10 +99,18 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              shortcutWidget('assets/icons/ic_article.png', context, 'Article', (){Navigator.pushNamed(context, '/article-page');}),
+              shortcutWidget('assets/icons/ic_article.png', context, 'Article',
+                      () {
+                    Navigator.pushNamed(context, '/article-page');
+                  }),
               shortcutWidget(
-                  'assets/icons/ic_dashboard.png', context, 'Dashboard', (){Navigator.pushNamed(context, '/article-page');}),
-              shortcutWidget('assets/icons/ic_career.png', context, 'Career', (){Navigator.pushNamed(context, '/career-page');})
+                  'assets/icons/ic_dashboard.png', context, 'Dashboard', () {
+                Navigator.pushNamed(context, '/dashboard-page');
+              }),
+              shortcutWidget('assets/icons/ic_career.png', context, 'Career',
+                      () {
+                    Navigator.pushNamed(context, '/career-page');
+                  })
             ],
           ),
           const SizedBox(
@@ -90,7 +119,9 @@ class HomePage extends StatelessWidget {
           Align(
               alignment: Alignment.topRight,
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/article-page');
+                  },
                   child: Text('Lihat Semua',
                       style: greyTextStyle.copyWith(fontSize: 12)))),
           const ArticleWigets(
@@ -98,12 +129,14 @@ class HomePage extends StatelessWidget {
             title: 'Mulyadi',
             subtitle: '3 Nutrisi Penting yang Dibutuhkan Oleh  Pelari',
             description:
-                'Itu adalah faktor penting yang harus adalah faktor penting yang harus aksdnkfkdnfkns',
+            'Itu adalah faktor penting yang harus adalah faktor penting yang harus aksdnkfkdnfkns',
             date: '12 Mar',
             time: '5 min',
             articleImageUrl: 'assets/images/img_article_example.png',
           ),
-          SizedBox(height: 16,),
+          SizedBox(
+            height: 16,
+          ),
         ],
       ),
     );
@@ -136,7 +169,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget shortcutWidget(String icon, BuildContext context, String title, VoidCallback onTap) {
+  Widget shortcutWidget(
+      String icon, BuildContext context, String title, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Column(

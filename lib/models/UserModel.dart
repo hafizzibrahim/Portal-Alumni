@@ -2,6 +2,7 @@ class UserModel {
   final String id;
   final String email;
   final int nim;
+  final String nama;
   final String fakultas;
   final String jurusan;
   final int tahunLulus;
@@ -12,6 +13,7 @@ class UserModel {
     required this.id,
     required this.email,
     required this.nim,
+    required this.nama,
     required this.fakultas,
     required this.jurusan,
     required this.tahunLulus,
@@ -24,6 +26,7 @@ class UserModel {
       id: json['data']['id'],
       email: json['data']['email'],
       nim: json['data']['nim'],
+      nama: json['data']['nama'],
       fakultas: json['data']['fakultas'],
       jurusan: json['data']['jurusan'],
       tahunLulus: json['data']['tahun_lulus'],

@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import '../models/article_model.dart';
 
 class ApiService {
-  static const String baseUrl = "https://helloworld1978.my.id/api";
+  static const String baseUrl = "https://immune-bull-smoothly.ngrok-free.app/api";
   String? _bearerToken;
 
   // Method to retrieve the bearer token
@@ -31,15 +31,18 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final user = UserModel.fromJson(jsonDecode(response.body));
-      // Simpan token setelah login
+      // Simpan token dan data pengguna setelah login
       setAuthToken(user.token);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', user.token);
+      await prefs.setString('nama', user.nama);
+      await prefs.setString('imagePath', user.imagePath);
       return user;
     } else {
       throw Exception('Failed to login');
     }
   }
+
 
 
   Future<SurveyModel> submitSurvey(

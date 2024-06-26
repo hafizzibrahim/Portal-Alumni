@@ -23,7 +23,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       profileHeader(currentUser),
                       SizedBox(height: 40),
-                      textField('Nama Lengkap', 'Kosyong'),
+                      textField('Nama Lengkap', currentUser.nama.toString()),
                       textField('Nim', currentUser.nim.toString()),
                       textField('Fakultas', currentUser.fakultas),
                       textField('Jurusan', currentUser.jurusan),
@@ -62,7 +62,7 @@ class ProfilePage extends StatelessWidget {
           bottomRight: Radius.circular(50),
         ),
         gradient: LinearGradient(
-          colors: [Color(0xFF5356FF), Color(0xFF221FBB)],
+          colors: [lightBlue, darkBlue],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -73,13 +73,16 @@ class ProfilePage extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 10),
             // Menampilkan gambar dari URL
-            Image.network(
-              user.imagePath,
-              scale: 1.5,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.network(
+                user.imagePath,
+                scale: 6,
+              ),
             ),
             SizedBox(height: 20),
             Text(
-              'user.nama', // Menampilkan nama dari data pengguna
+              user.nama, // Menampilkan nama dari data pengguna
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
             ),
             Text(
