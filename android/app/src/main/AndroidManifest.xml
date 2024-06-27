@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="portal_alumni_v1"
+        android:label="Portal Alumni Untirta"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
