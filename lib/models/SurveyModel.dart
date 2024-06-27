@@ -1,12 +1,4 @@
 class SurveyModel {
-  final String nama;
-  final int nim;
-  final String fakultas;
-  final String programStudi;
-  final String jenisKelamin;
-  final String emailKampus;
-  final String emailPribadi;
-  final String noHp;
   final int tahunMasuk;
   final int tahunLulus;
   final String kapanMulaiPekerjaan;
@@ -25,14 +17,6 @@ class SurveyModel {
   final String namaKampus;
 
   SurveyModel({
-    required this.nama,
-    required this.nim,
-    required this.fakultas,
-    required this.programStudi,
-    required this.jenisKelamin,
-    required this.emailKampus,
-    required this.emailPribadi,
-    required this.noHp,
     required this.tahunMasuk,
     required this.tahunLulus,
     required this.kapanMulaiPekerjaan,
@@ -53,14 +37,6 @@ class SurveyModel {
 
   factory SurveyModel.fromJson(Map<String, dynamic> json) {
     return SurveyModel(
-      nama: json['data']['nama'],
-      nim: json['data']['nim'],
-      fakultas: json['data']['fakultas'],
-      programStudi: json['data']['program_studi'],
-      jenisKelamin: json['data']['jenis_kelamin'],
-      emailKampus: json['data']['email_kampus'],
-      emailPribadi: json['data']['email_pribadi'],
-      noHp: json['data']['no_hp'],
       tahunMasuk: json['data']['tahun_masuk'],
       tahunLulus: json['data']['tahun_lulus'],
       kapanMulaiPekerjaan: json['data']['kapan_anda_mulai_mencari_pekerjaan'],
