@@ -216,8 +216,9 @@ class HomePage extends StatelessWidget {
     return CarouselSlider(
       items: [
         'assets/images/img_career_banner.png',
-        'assets/images/img_career_banner.png',
-        'assets/images/img_career_banner.png',
+        'assets/images/img_job_banner.png',
+        'assets/images/img_job_banner2.png',
+        'assets/images/img_job_banner3.png',
       ].map((imagePath) {
         return Container(
           width: MediaQuery.of(context).size.width,
