@@ -46,14 +46,6 @@ class ApiService {
 
 
   Future<SurveyModel> submitSurvey(
-      String nama,
-      int nim,
-      String fakultas,
-      String programStudi,
-      String jenisKelamin,
-      String emailKampus,
-      String emailPribadi,
-      String noHp,
       int tahunMasuk,
       int tahunLulus,
       String mulaiBekerja,
@@ -88,14 +80,6 @@ class ApiService {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
-        'nama': nama,
-        'nim': nim,
-        'fakultas': fakultas,
-        'program_studi': programStudi,
-        'jenis_kelamin': jenisKelamin,
-        'email_kampus': emailKampus,
-        'email_pribadi': emailPribadi,
-        'no_hp': noHp,
         'tahun_masuk': tahunMasuk,
         'tahun_lulus': tahunLulus,
         'kapan_anda_mulai_mencari_pekerjaan': mulaiBekerja,
