@@ -1,15 +1,15 @@
 part of 'pages.dart';
 
 class ArticlePage extends StatelessWidget {
-  ArticlePage({super.key});
+  ArticlePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<ArticleViewModel>(context, listen: false);
 
-    // Panggil fetchJobs saat ArticlePage pertama kali dibangun
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      viewModel.getArticle();
+    // Panggil fetchArticles saat ArticlePage pertama kali dibangun
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      viewModel.getArticles();
     });
 
     return Scaffold(
@@ -66,7 +66,7 @@ class ArticlePage extends StatelessWidget {
                       'No articles found.',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black54,
+                        color: blackColor,
                       ),
                     ),
                   );
@@ -86,18 +86,17 @@ class ArticlePage extends StatelessWidget {
                                   builder: (context) => ArticleDetailPage(
                                     title: article.title,
                                     content: article.content,
+                                    imagePath: article.imagePath,
                                   ),
                                 ),
                               );
                             },
                             child: ArticleWigets(
-                              title: 'Nurdin', // Ganti dengan data sesuai artikel
                               subtitle: article.title,
                               description: article.content,
-                              imageUrl: 'assets/images/profile_photo.png', // Ganti dengan gambar profil
-                              date: '12 Mar', // Ganti dengan tanggal artikel
-                              time: '5 min', // Ganti dengan estimasi waktu baca
-                              articleImageUrl: 'assets/images/img_article_example.png', // Ganti dengan gambar artikel
+                              date: '12 Mar', // Contoh tanggal
+                              time: '5 min', // Contoh estimasi waktu baca
+                              articleImageUrl: article.imagePath, // URL gambar artikel
                             ),
                           ),
                           const SizedBox(height: 21),

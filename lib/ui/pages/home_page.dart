@@ -1,15 +1,15 @@
 part of 'pages.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<ArticleViewModel>(context, listen: false);
 
-    // Panggil fetchJobs saat ArticlePage pertama kali dibangun
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      viewModel.getArticle();
+    // Call fetchJobs when ArticlePage is first built
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      viewModel.getArticles();
     });
 
     return Scaffold(
@@ -20,8 +20,9 @@ class HomePage extends StatelessWidget {
           decoration: BoxDecoration(
             color: whiteColor,
             borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25)),
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25),
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 18),
@@ -48,13 +49,17 @@ class HomePage extends StatelessWidget {
                                 Text(
                                   'Halo ${currentUser.nama}!',
                                   style: blackTextStyle.copyWith(
-                                      fontSize: 20, fontWeight: bold),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 Text(
                                   'Selamat Datang di Portal Alumni',
                                   style: blackTextStyle.copyWith(
-                                      fontSize: 12, fontWeight: medium),
-                                )
+                                    fontSize: 12,
+                                    fontWeight: medium,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -77,120 +82,132 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        children: [
-          const SizedBox(
-            height: 32,
-          ),
-          Text(
-            'Recent Career',
-            style: blackTextStyle.copyWith(fontSize: 12),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          bannerSlider(context),
-          const SizedBox(
-            height: 55,
-          ),
-          Text(
-            'Shortcut',
-            style: blackTextStyle.copyWith(fontSize: 12),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              shortcutWidget('assets/icons/ic_article.png', context, 'Article',
-                      () {
-                    Navigator.pushNamed(context, '/article-page');
-                  }),
-              shortcutWidget(
-                  'assets/icons/ic_dashboard.png', context, 'Dashboard', () {
-                Navigator.pushNamed(context, '/dashboard-page');
-              }),
-              shortcutWidget('assets/icons/ic_career.png', context, 'Career',
-                      () {
-                    Navigator.pushNamed(context, '/career-page');
-                  })
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Align(
-              alignment: Alignment.topRight,
-              child: TextButton(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Recent Career',
+                style: blackTextStyle.copyWith(fontSize: 12),
+              ),
+            ),
+            const SizedBox(height: 16),
+            bannerSlider(context),
+            const SizedBox(height: 55),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Shortcut',
+                style: blackTextStyle.copyWith(fontSize: 12),
+              ),
+            ),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  shortcutWidget(
+                    'assets/icons/ic_article.png',
+                    context,
+                    'Article',
+                        () {
+                      Navigator.pushNamed(context, '/article-page');
+                    },
+                  ),
+                  shortcutWidget(
+                    'assets/icons/ic_dashboard.png',
+                    context,
+                    'Dashboard',
+                        () {
+                      Navigator.pushNamed(context, '/dashboard-page');
+                    },
+                  ),
+                  shortcutWidget(
+                    'assets/icons/ic_career.png',
+                    context,
+                    'Career',
+                        () {
+                      Navigator.pushNamed(context, '/career-page');
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/article-page');
                   },
-                  child: Text('Lihat Semua',
-                      style: greyTextStyle.copyWith(fontSize: 12)))),
-      Expanded(
-        child: Consumer<ArticleViewModel>(
-          builder: (context, viewModel, child) {
-            if (viewModel.isLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (viewModel.articles.isEmpty) {
-              return Center(
-                child: Text(
-                  'No articles found.',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black54,
+                  child: Text(
+                    'Lihat Semua',
+                    style: greyTextStyle.copyWith(fontSize: 12),
                   ),
                 ),
-              );
-            } else {
-              final latestArticles = viewModel.articles.take(3).toList();
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: latestArticles.length,
-                itemBuilder: (context, index) {
-                  final article = latestArticles[index];
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ArticleDetailPage(
-                                title: article.title,
-                                content: article.content,
-                              ),
-                            ),
-                          );
-                        },
-                        child: ArticleWigets(
-                          title: 'Nurdin',
-                          subtitle: article.title,
-                          description: article.content,
-                          imageUrl: 'assets/images/profile_photo.png',
-                          date: '12 Mar',
-                          time: '5 min',
-                          articleImageUrl: 'assets/images/img_article_example.png',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Consumer<ArticleViewModel>(
+                builder: (context, viewModel, child) {
+                  if (viewModel.isLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (viewModel.articles.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No articles found.',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black54,
                         ),
                       ),
+                    );
+                  } else {
+                    final latestArticles = viewModel.articles.take(3).toList();
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: latestArticles.map((article) {
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ArticleDetailPage(
+                                      title: article.title,
+                                      content: article.content, imagePath: article.imagePath,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: ArticleWigets(
+                                subtitle: article.title,
+                                description: article.content,
+                                date: '12 Mar',
+                                time: '5 min',
+                                articleImageUrl: article.imagePath,
+                              ),
+                            ),
                             const SizedBox(height: 21),
                           ],
                         );
-                      },
+                      }).toList(),
                     );
                   }
                 },
               ),
-      ),
-          SizedBox(
-            height: 16,
-          ),
-        ],
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }
@@ -222,9 +239,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget shortcutWidget(
-      String icon, BuildContext context, String title, VoidCallback onTap) {
-    return GestureDetector(
+  Widget shortcutWidget(String icon, BuildContext context, String title, VoidCallback onTap) {
+    return InkWell(
       onTap: onTap,
       child: Column(
         children: [
@@ -233,32 +249,33 @@ class HomePage extends StatelessWidget {
             width: 56,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFFEAEBFF),
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 8,
-                      spreadRadius: 1,
-                      offset: const Offset(-2, 3),
-                      color: greyColor),
-                  BoxShadow(
-                      blurRadius: 8,
-                      spreadRadius: 1,
-                      offset: const Offset(2, -3),
-                      color: whiteColor),
-                ]),
+              shape: BoxShape.circle,
+              color: const Color(0xFFEAEBFF),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 8,
+                  spreadRadius: 1,
+                  offset: const Offset(-2, 3),
+                  color: greyColor,
+                ),
+                BoxShadow(
+                  blurRadius: 8,
+                  spreadRadius: 1,
+                  offset: const Offset(2, -3),
+                  color: whiteColor,
+                ),
+              ],
+            ),
             child: Image.asset(
               icon,
               scale: 2.5,
             ),
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Text(
             title,
             style: blackTextStyle.copyWith(fontSize: 12, fontWeight: medium),
-          )
+          ),
         ],
       ),
     );

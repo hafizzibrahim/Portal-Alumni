@@ -120,13 +120,13 @@ class ApiService {
     }
   }
 
-  Future<List<ArticleModel>> getArticle() async {
+  Future<List<ArticleModel>> getArticles() async {
     final String url = '$baseUrl/articles';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body)['data'];
-      return jsonResponse.map((articles) => ArticleModel.fromJson(articles)).toList();
+      return jsonResponse.map((articleJson) => ArticleModel.fromJson(articleJson)).toList();
     } else {
       throw Exception('Failed to load articles');
     }

@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-
+import 'package:flutter/material.dart';
 import '../models/article_model.dart';
 import '../services/ApiService.dart';
 
@@ -16,12 +15,12 @@ class ArticleViewModel with ChangeNotifier {
   List<ArticleModel> get articles => _filteredArticles;
   bool get isLoading => _isLoading;
 
-  Future<void> getArticle() async {
+  Future<void> getArticles() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      _articles = await apiService.getArticle();
+      _articles = await apiService.getArticles();
       _filteredArticles = _articles; // Update filtered articles
     } catch (e) {
       print('Error fetching articles: $e');
