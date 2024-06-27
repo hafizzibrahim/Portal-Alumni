@@ -87,7 +87,8 @@ class CareerPage extends StatelessWidget {
                                     title: job.title,
                                     description: job.description,
                                     content: job.content,
-                                    income: 'N/A', // Replace with salary data if available.
+                                    income: 'N/A',
+                                    imagepath: job.imagePath,// Replace with salary data if available.
                                   ),
                                 ),
                               );
@@ -96,7 +97,8 @@ class CareerPage extends StatelessWidget {
                               title: job.title,
                               subTitle: job.description,
                               subTitle2: job.content,
-                              income: 'N/A', // Replace with salary data if available.
+                              income: 'N/A',
+                              imagePath: job.imagePath,
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -121,12 +123,13 @@ class CustomCard2Widget extends StatelessWidget {
   final String subTitle;
   final String subTitle2;
   final String income;
+  final String imagePath;
   const CustomCard2Widget({
     super.key,
     required this.title,
     required this.subTitle,
     required this.subTitle2,
-    required this.income,
+    required this.income, required this.imagePath,
   });
 
   @override
@@ -142,10 +145,10 @@ class CustomCard2Widget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  child: Image.asset(
-                    'assets/images/img_nasa.png',
-                    scale: 1.2,
-                  )),
+                  child: Image.network(
+                    imagePath,
+                    scale: 1.7,
+                  ),),
               Expanded(
                 flex: 3,
                 child: Column(
