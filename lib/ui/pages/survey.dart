@@ -86,14 +86,14 @@ class _SurveyTestState extends State<SurveyPage> {
 
     try {
       await Provider.of<SurveyViewModel>(context, listen: false).survey(
-          nama,
-          nim,
-          fakultas,
-          prodi,
-          jenisKelamin,
-          emailKampus,
-          emailPribadi,
-          noHp,
+          // nama,
+          // nim,
+          // fakultas,
+          // prodi,
+          // jenisKelamin,
+          // emailKampus,
+          // emailPribadi,
+          // noHp,
           tahunMasuk,
           tahunLulus,
           cariKerja,
@@ -164,89 +164,6 @@ class _SurveyTestState extends State<SurveyPage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         children: [
-          surveySection(context, 'Data Diri'),
-          const SizedBox(
-            height: 16,
-          ),
-          TextFieldTracerWidget(
-            title: 'Nama',
-            maxLines: 1,
-            controller: _namaLengkapController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          TextFieldTracerWidget(
-            title: 'NIM',
-            maxLines: 1,
-            controller: _nimController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          DropdownMenuWidget(
-            height: 70,
-            label: 'Faklutas',
-            listValue: const [
-              DropdownMenuEntry(value: 'Hukum', label: 'Hukum'),
-              DropdownMenuEntry(
-                  value: 'Keguruan dan Ilmu Pendidikan',
-                  label: 'Keguruan dan Ilmu Pendidikan'),
-              DropdownMenuEntry(value: 'Teknik', label: 'Teknik'),
-              DropdownMenuEntry(value: 'Pertanian', label: 'Pertanian'),
-              DropdownMenuEntry(
-                  value: 'Ilmu Sosial dan Ilmu Politik',
-                  label: 'Ilmu Sosial dan Ilmu Politik'),
-            ],
-            controller: _fakultasController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          TextFieldTracerWidget(
-            title: 'Program Studi',
-            maxLines: 1,
-            controller: _programStudiController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          DropdownMenuWidget(
-            height: 70,
-            label: 'Jenis Kelamin',
-            listValue: const [
-              DropdownMenuEntry(value: 'Laki-Laki', label: 'Laki-Laki'),
-              DropdownMenuEntry(value: 'Perempuan', label: 'Perempuan'),
-            ],
-            controller: _jenisKelaminController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          TextFieldTracerWidget(
-            title: 'Email Kampus',
-            maxLines: 1,
-            controller: _emailKampusController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          TextFieldTracerWidget(
-            title: 'Email Pribadi',
-            maxLines: 1,
-            controller: _emailPribadiController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          TextFieldTracerWidget(
-            title: 'No Handphone / WhatsApp',
-            maxLines: 1,
-            controller: _noHpController,
-          ),
-          const SizedBox(
-            height: 40,
-          ),
           surveySection(context, 'Data Wisuda'),
           const SizedBox(
             height: 10,
@@ -382,7 +299,7 @@ class _SurveyTestState extends State<SurveyPage> {
           ),
           DropdownMenuWidget(
             height: 70,
-            label: 'Berapa range gaji anda ditempat kerja setiap bulan?',
+            label: 'Jarak tahun lulus dan mendapat pekerjaan',
             listValue: const [
               DropdownMenuEntry(
                   value: 'Kurang dari 6 bulan', label: 'Kurang dari 6 bulan'),
@@ -532,7 +449,7 @@ class _SurveyTestState extends State<SurveyPage> {
             height: 40,
           ),
           CustomButtonWidget(
-            title: 'Masuk',
+            title: 'Kirim',
             width: 250,
             heigth: 55,
             isEnable: true,
