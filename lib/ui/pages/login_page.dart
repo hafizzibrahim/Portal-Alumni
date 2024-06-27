@@ -10,42 +10,20 @@ class LoginPage extends StatelessWidget {
     try {
       await Provider.of<LoginViewModel>(context, listen: false).login(email, password);
 
-      // Show success dialog
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text(
-            'Login Successful',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          content: Text('Welcome to Portal Alumni !!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-                Navigator.pushReplacementNamed(context, '/main-page');
-              },
-              child: Text('Okay'),
-            ),
-          ],
-        ),
-      );
+      Navigator.pushNamed(context, '/main-page');
+
     } catch (e) {
       print('Login Error: $e');
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text(
-            'Login Failed',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          content: Text(e.toString()),
+          content: Image.asset('assets/images/img_failed_login.png', fit: BoxFit.cover,),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(ctx).pop();
               },
-              child: Text('Okay'),
+              child: Text('Okay', style: blackTextStyle.copyWith(fontSize: 12, fontWeight: medium),),
             ),
           ],
         ),
