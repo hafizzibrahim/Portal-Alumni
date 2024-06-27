@@ -149,7 +149,6 @@ class HomePage extends StatelessWidget {
             } else {
               final latestArticles = viewModel.articles.take(3).toList();
               return ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 10),
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: latestArticles.length,
