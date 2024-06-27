@@ -5,13 +5,14 @@ class CareerDetailPage extends StatelessWidget {
   final String? description;
   final String? content;
   final String? income;
+  final String? imagepath;
 
   const CareerDetailPage({
     super.key,
     this.title,
     this.description,
     this.content,
-    this.income,
+    this.income, this.imagepath,
   });
 
   @override
@@ -72,9 +73,10 @@ class CareerDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            'assets/images/photo_career.png',
-            scale: 1.7,
+          Image.network(
+            imagepath!,
+            height: 128,
+            width: 128,
           ),
           Text(
             title!,
